@@ -33,4 +33,21 @@ output "cicd_policy_arn" {
   description = "ARN of the CI/CD policy"
 }
 
+# Certificate validation outputs for external DNS
+output "certificate_validation_records" {
+  value = var.use_external_dns ? {
+    for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
+      name  = dvo.resource_record_name
+      type  = dvo.resource_record_type
+      value = dvo.resource_record_value
+    }
+  } : null
+  description = "DNS validation records for SSL certificate (use when use_external_dns is true)"
+}
+
+output "certificate_arn" {
+  value = aws_acm_certificate.this.arn
+  description = "ARN of the SSL certificate"
+}
+
 

@@ -50,5 +50,5 @@ resource "aws_cloudfront_distribution" "this" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
-  depends_on = [aws_acm_certificate_validation.this]
+  depends_on = var.use_external_dns ? [] : [aws_acm_certificate_validation.this]
 }

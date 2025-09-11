@@ -1,5 +1,6 @@
 resource "aws_route53_record" "a" {
-  zone_id = data.aws_route53_zone.this.zone_id
+  count   = var.use_external_dns ? 0 : 1
+  zone_id = data.aws_route53_zone.this[0].zone_id
   name    = var.domain_name
   type    = "A"
   alias {
@@ -10,7 +11,8 @@ resource "aws_route53_record" "a" {
 }
 
 resource "aws_route53_record" "aaaa" {
-  zone_id = data.aws_route53_zone.this.zone_id
+  count   = var.use_external_dns ? 0 : 1
+  zone_id = data.aws_route53_zone.this[0].zone_id
   name    = var.domain_name
   type    = "AAAA"
   alias {

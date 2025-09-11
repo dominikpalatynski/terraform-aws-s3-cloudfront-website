@@ -1,4 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
+terraform-docs markdown table --output-file Documentation.md --output-mode inject .
 ## Requirements
 
 | Name | Version |
