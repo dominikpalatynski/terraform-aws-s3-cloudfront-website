@@ -33,9 +33,10 @@ output "cicd_policy_arn" {
   description = "ARN of the CI/CD policy"
 }
 
+# Certificate outputs (only when using Route 53)
 output "certificate_arn" {
-  value = aws_acm_certificate.this.arn
-  description = "ARN of the SSL certificate"
+  value = var.use_external_dns ? null : aws_acm_certificate.this[0].arn
+  description = "ARN of the SSL certificate (only when use_external_dns is false)"
 }
 
 output "certificate_validation_records" {

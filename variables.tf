@@ -20,9 +20,3 @@ variable "tags" {
   description = "Additional tags to apply to resources"
   default     = {}
 }
-
-variable "certificate_validated" {
-  type        = bool
-  description = "Set to true after manually validating the certificate in external DNS provider"
-  default     = false
-}
