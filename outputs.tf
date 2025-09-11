@@ -40,12 +40,12 @@ output "certificate_arn" {
 }
 
 output "certificate_validation_records" {
-  value = {
+  value = var.use_external_dns ? null : {
     for dvo in aws_acm_certificate.this[0].domain_validation_options : dvo.domain_name => {
       name  = dvo.resource_record_name
       type  = dvo.resource_record_type
       value = dvo.resource_record_value
     }
   }
-  description = "DNS validation records for SSL certificate (add these to your external DNS provider)"
+  description = "DNS validation records for SSL certificate (only when use_external_dns is false)"
 }
