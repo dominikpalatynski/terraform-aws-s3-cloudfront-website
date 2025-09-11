@@ -4,7 +4,6 @@ data "aws_route53_zone" "this" {
 }
 
 resource "aws_acm_certificate" "this" {
-  count             = var.use_external_dns ? 0 : 1
   domain_name       = var.domain_name
   validation_method = "DNS"
 

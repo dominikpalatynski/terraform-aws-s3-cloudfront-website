@@ -3,7 +3,7 @@ resource "aws_cloudfront_distribution" "this" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   price_class         = "PriceClass_100"
-  aliases = var.use_external_dns ? [] : [var.domain_name]
+  aliases = [var.domain_name]
 
   tags = merge(var.tags, {
     Name        = "CloudFront Distribution for ${var.domain_name}"
@@ -45,9 +45,8 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = var.use_external_dns ? null : aws_acm_certificate.this.arn
-    cloudfront_default_certificate = var.use_external_dns ? true : false
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.2_2021"
+    acm_certificate_arn           = var.use_external_dns && var.certificate_validated ? aws_acm_certificate.this.arn : (var.use_external_dns ? null : aws_acm_certificate.this.arn)
+    ssl_support_method            = "sni-only"
+    minimum_protocol_version      = "TLSv1.2_2021"
   }
 }

@@ -34,19 +34,17 @@ output "cicd_policy_arn" {
 }
 
 output "certificate_arn" {
-  value = var.use_external_dns ? null : aws_acm_certificate.this[0].arn
-  description = "ARN of the SSL certificate (only when use_external_dns is false)"
+  value = aws_acm_certificate.this.arn
+  description = "ARN of the SSL certificate"
 }
 
 output "certificate_validation_records" {
-  value = var.use_external_dns ? null : {
-    for dvo in aws_acm_certificate.this[0].domain_validation_options : dvo.domain_name => {
+  value = {
+    for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
       name  = dvo.resource_record_name
       type  = dvo.resource_record_type
       value = dvo.resource_record_value
     }
   }
-  description = "DNS validation records for SSL certificate (only when use_external_dns is false)"
+  description = "DNS validation records for SSL certificate (add these to your external DNS provider)"
 }
-
-
