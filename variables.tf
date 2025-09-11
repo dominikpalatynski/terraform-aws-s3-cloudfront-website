@@ -7,11 +7,6 @@ variable "hosted_zone_id" {
   type        = string
   description = "The Route 53 hosted zone ID (required only when use_external_dns is false)"
   default     = null
-  
-  validation {
-    condition = var.use_external_dns || var.hosted_zone_id != null
-    error_message = "hosted_zone_id is required when use_external_dns is false."
-  }
 }
 
 variable "use_external_dns" {
