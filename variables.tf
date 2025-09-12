@@ -15,6 +15,12 @@ variable "use_external_dns" {
   default     = false
 }
 
+variable "acm_certificate_arn" {
+  type        = string
+  description = "ARN of the ACM certificate to use with CloudFront. Required when use_external_dns is true. Leave empty when using Route 53 (certificate will be created automatically)."
+  default     = null
+}
+
 variable "tags" {
   type        = map(string)
   description = "Additional tags to apply to resources"
