@@ -3,7 +3,7 @@ resource "aws_cloudfront_distribution" "this" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   price_class         = "PriceClass_100"
-  aliases = [var.domain_name]
+  aliases = var.aliases
 
   tags = merge(var.tags, {
     Name        = "CloudFront Distribution for ${var.domain_name}"

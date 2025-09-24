@@ -3,6 +3,18 @@ variable "domain_name" {
   description = "The domain name for the website"
 }
 
+variable "domain_name_subdomain" {
+  type        = string
+  description = "The subdomain name for the website"
+  default     = null
+}
+
+variable "aliases" {
+  type        = list(string)
+  description = "The aliases for the website"
+  default     = []
+}
+
 variable "hosted_zone_id" {
   type        = string
   description = "The Route 53 hosted zone ID (required only when use_external_dns is false)"
